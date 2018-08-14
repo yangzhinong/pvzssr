@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdn.bootcss.com/json2/20160511/json2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+    ${SSTABLE}
+    <script type="text/javascript">
+        function test(name, address) {
+            window.alert("Name is " + name + "; address is " + address);
+        }
+        function readDataFromHtml() {
+            var table = $('table');
+            var rows = $('tbody>tr', table);
+            //console.log(rows.length);
+            //console.log(rows[0].innerHTML());
+
+            var ret = [];
+            $.each(rows, (i, e) => {
+                var tds = $(e).find('td');
+                var o = {};
+                //console.log(tds);
+                o.rate = tds.eq(0).html();
+                o.ip = tds.eq(1).html();
+                o.port = tds.eq(2).html();
+                o.password = tds.eq(3).html();
+                o.method = tds.eq(4).html();
+                o.time = tds.eq(5).html();
+                o.location = tds.eq(6).html();
+                ret.push(o);
+            });
+
+            var s = JSON.stringify(ret);
+
+            console.log(s);
+            //save to 2.json , and call 
+            return s;
+        }
+
+
+
+        var obj = {};
+        obj.test = readDataFromHtml;
+
+        readDataFromHtml();
+
+
+    </script>
+</body>
+</html>
